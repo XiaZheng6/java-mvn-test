@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teamar.genki.pos.basic.dao.ext.TRoleMapperExt">
+
+    <select id="selectRightFromUserIds" resultType="cn.teamar.genki.pos.basic.vo.pos.PosUserRightVO">
+        SELECT DISTINCT ur.user_id,r.right_code,r.right_type,r.right_name,r.image_url,r.source_path,o.role_name as role_name,o.id as role_id
+        FROM t_role_right rr
+        LEFT JOIN t_user_role ur on (rr.role_id = ur.role_id)
+        LEFT JOIN t_right r on(r.id = rr.right_id)
+        LEft JOIN t_role o on(o.id = rr.role_id)
+        where ur.user_id in
+        <foreach collection="ids" item="id" index="index"
+                 open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+
+
+</mapper>

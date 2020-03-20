@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+            location="D:/maven/repo/mysql/mysql-connector-java/5.1.42/mysql-connector-java-5.1.42.jar"/>
+    <context id="context1">
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-2ze979f555e1ta4475o.mysql.rds.aliyuncs.com/genki_basic"
+                        userId="root"
+                        password="Aurora_team"/>
+
+
+        <javaModelGenerator targetPackage="cn.teamar.genki.pos.basic.po"
+                            targetProject="D:\WorkSpace\genki-basic-pos\genki-basic-pos-business\src/main/java"/>
+
+        <sqlMapGenerator targetPackage="cn.teamar.genki.pos.basic.dao"
+                         targetProject="D:\WorkSpace\genki-basic-pos\genki-basic-pos-business/src/main/java"/>
+
+        <javaClientGenerator targetPackage="cn.teamar.genki.pos.basic.dao"
+                             targetProject="D:\WorkSpace\genki-basic-pos\genki-basic-pos-business/src/main/java" type="XMLMAPPER"/>
+
+<!--
+
+        <table tableName="t_area"/>
+        <table tableName="t_brand"/>
+        <table tableName="t_city_tree"/>
+        <table tableName="t_department"/>
+
+        <table tableName="t_duty"/>
+        <table tableName="t_group"/>
+        <table tableName="t_right"/>
+
+
+        <table tableName="t_role"/>
+        <table tableName="t_role_dyty"/>
+        <table tableName="t_role_right"/>
+        <table tableName="t_slottime"/>
+
+        <table tableName="t_store"/>
+        <table tableName="t_table"/>
+
+        <table tableName="t_user_role"/>
+-->
+        <table tableName="t_user"/>
+    </context>
+</generatorConfiguration>

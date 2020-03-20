@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teamar.genki.pos.basic.dao.TSingleDiscountMapper" >
+  <resultMap id="BaseResultMap" type="cn.teamar.genki.pos.basic.po.TSingleDiscount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="g_id" property="gId" jdbcType="BIGINT" />
+    <result column="b_id" property="bId" jdbcType="BIGINT" />
+    <result column="s_id" property="sId" jdbcType="BIGINT" />
+    <result column="discount_name" property="discountName" jdbcType="VARCHAR" />
+    <result column="discount_rate" property="discountRate" jdbcType="TINYINT" />
+    <result column="weight" property="weight" jdbcType="TINYINT" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, G_ID, B_ID, S_ID, DISCOUNT_NAME, DISCOUNT_RATE,WEIGHT,STATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_single_discount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_single_discount
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_single_discount
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscountExample" >
+    delete from t_single_discount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscount" >
+    insert into t_single_discount (id, g_id, b_id, s_id, 
+      discount_name, discount_rate)
+    values (#{id,jdbcType=BIGINT}, #{gId,jdbcType=BIGINT}, #{bId,jdbcType=BIGINT}, #{sId,jdbcType=BIGINT}, 
+      #{discountName,jdbcType=VARCHAR}, #{discountRate,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscount" >
+    insert into t_single_discount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="discountName != null" >
+        discount_name,
+      </if>
+      <if test="discountRate != null" >
+        discount_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gId != null" >
+        #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="bId != null" >
+        #{bId,jdbcType=BIGINT},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=BIGINT},
+      </if>
+      <if test="discountName != null" >
+        #{discountName,jdbcType=VARCHAR},
+      </if>
+      <if test="discountRate != null" >
+        #{discountRate,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscountExample" resultType="java.lang.Integer" >
+    select count(*) from t_single_discount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_single_discount
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gId != null" >
+        g_id = #{record.gId,jdbcType=BIGINT},
+      </if>
+      <if test="record.bId != null" >
+        b_id = #{record.bId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sId != null" >
+        s_id = #{record.sId,jdbcType=BIGINT},
+      </if>
+      <if test="record.discountName != null" >
+        discount_name = #{record.discountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discountRate != null" >
+        discount_rate = #{record.discountRate,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_single_discount
+    set id = #{record.id,jdbcType=BIGINT},
+      g_id = #{record.gId,jdbcType=BIGINT},
+      b_id = #{record.bId,jdbcType=BIGINT},
+      s_id = #{record.sId,jdbcType=BIGINT},
+      discount_name = #{record.discountName,jdbcType=VARCHAR},
+      discount_rate = #{record.discountRate,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscount" >
+    update t_single_discount
+    <set >
+      <if test="gId != null" >
+        g_id = #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="bId != null" >
+        b_id = #{bId,jdbcType=BIGINT},
+      </if>
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=BIGINT},
+      </if>
+      <if test="discountName != null" >
+        discount_name = #{discountName,jdbcType=VARCHAR},
+      </if>
+      <if test="discountRate != null" >
+        discount_rate = #{discountRate,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.teamar.genki.pos.basic.po.TSingleDiscount" >
+    update t_single_discount
+    set g_id = #{gId,jdbcType=BIGINT},
+      b_id = #{bId,jdbcType=BIGINT},
+      s_id = #{sId,jdbcType=BIGINT},
+      discount_name = #{discountName,jdbcType=VARCHAR},
+      discount_rate = #{discountRate,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

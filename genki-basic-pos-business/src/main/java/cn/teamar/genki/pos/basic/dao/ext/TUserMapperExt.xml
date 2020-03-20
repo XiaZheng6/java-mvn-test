@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teamar.genki.pos.basic.dao.ext.TUserMapperExt">
+
+    <resultMap id="BaseResultMap" type="cn.teamar.genki.pos.basic.po.TUser">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="g_id" jdbcType="BIGINT" property="gId" />
+        <result column="b_id" jdbcType="BIGINT" property="bId" />
+        <result column="s_id" jdbcType="BIGINT" property="sId" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="dep_id" jdbcType="BIGINT" property="depId" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="state" jdbcType="TINYINT" property="state" />
+        <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, g_id, b_id, s_id, employee_num, mobile, real_name, user_name, password, dep_id,
+    address, state, create_user_id, create_user_name, create_time
+    </sql>
+
+
+    <select id="selectIdAndNameBySid" resultType="cn.teamar.genki.common.tools.vo.NameCodeVO">
+        SELECT id as `code`, user_name as `name` FROM t_user
+        WHERE sid = #{sid} AND state = 1
+    </select>
+
+    <select id="selectBySidAndCondition" resultType="cn.teamar.genki.pos.basic.vo.pos.PosUserListVO">
+        SELECT
+        id,real_name,user_name,employee_num,mobile,state
+        FROM  t_user AS b
+        WHERE b.state != 127 AND b.s_id = #{sid}
+        <if test="real_name !=null and real_name!=''">
+            AND real_name = #{real_name}
+        </if>
+        <if test="mobile !=null and mobile!=''">
+            AND mobile = #{mobile}
+        </if>
+    </select>
+    
+    
+    <select id="selectDutyByUserId" resultType="Long" parameterType="java.lang.Long">
+        SELECT DISTINCT d.id
+        FROM t_duty d
+        LEFT JOIN t_role_dyty rd
+        ON d.id = rd.duty_id
+        LEFT JOIN t_user_role ur
+        ON ur.role_id = rd.role_id
+        WHERE ur.user_id=#{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectDutyByUserIds" resultType="Long" parameterType="java.lang.Long">
+        SELECT DISTINCT rd.duty_id
+        FROM  t_role_dyty rd
+        LEFT JOIN t_user_role ur
+        ON ur.role_id = rd.role_id
+        WHERE ur.user_id=#{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectRightByUserIds" resultType="Long" parameterType="java.lang.Long">
+        SELECT DISTINCT rr.right_id
+        FROM  t_role_right rr
+        LEFT JOIN t_user_role ur
+        ON ur.role_id = rr.role_id
+        WHERE ur.user_id=#{id,jdbcType=BIGINT}
+    </select>
+
+</mapper>

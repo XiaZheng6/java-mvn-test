@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teamar.genki.pos.basic.dao.TSlottimeMapper" >
+  <resultMap id="BaseResultMap" type="cn.teamar.genki.pos.basic.po.TSlottime" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="g_id" property="gId" jdbcType="BIGINT" />
+    <result column="b_id" property="bId" jdbcType="BIGINT" />
+    <result column="s_id" property="sId" jdbcType="BIGINT" />
+    <result column="slot_time" property="slotTime" jdbcType="VARCHAR" />
+    <result column="slot_start" property="slotStart" jdbcType="BIGINT" />
+    <result column="slot_end" property="slotEnd" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, g_id, b_id, s_id, slot_time, slot_start, slot_end
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.teamar.genki.pos.basic.po.TSlottimeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_slottime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_slottime
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_slottime
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.teamar.genki.pos.basic.po.TSlottimeExample" >
+    delete from t_slottime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.teamar.genki.pos.basic.po.TSlottime" >
+    insert into t_slottime (id, g_id, b_id, s_id, 
+      slot_time, slot_start, slot_end
+      )
+    values (#{id,jdbcType=BIGINT}, #{gId,jdbcType=BIGINT}, #{bId,jdbcType=BIGINT}, #{sId,jdbcType=BIGINT}, 
+      #{slotTime,jdbcType=VARCHAR}, #{slotStart,jdbcType=BIGINT}, #{slotEnd,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.teamar.genki.pos.basic.po.TSlottime" >
+    insert into t_slottime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="slotTime != null" >
+        slot_time,
+      </if>
+      <if test="slotStart != null" >
+        slot_start,
+      </if>
+      <if test="slotEnd != null" >
+        slot_end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gId != null" >
+        #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="bId != null" >
+        #{bId,jdbcType=BIGINT},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=BIGINT},
+      </if>
+      <if test="slotTime != null" >
+        #{slotTime,jdbcType=VARCHAR},
+      </if>
+      <if test="slotStart != null" >
+        #{slotStart,jdbcType=BIGINT},
+      </if>
+      <if test="slotEnd != null" >
+        #{slotEnd,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.teamar.genki.pos.basic.po.TSlottimeExample" resultType="java.lang.Integer" >
+    select count(*) from t_slottime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_slottime
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gId != null" >
+        g_id = #{record.gId,jdbcType=BIGINT},
+      </if>
+      <if test="record.bId != null" >
+        b_id = #{record.bId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sId != null" >
+        s_id = #{record.sId,jdbcType=BIGINT},
+      </if>
+      <if test="record.slotTime != null" >
+        slot_time = #{record.slotTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slotStart != null" >
+        slot_start = #{record.slotStart,jdbcType=BIGINT},
+      </if>
+      <if test="record.slotEnd != null" >
+        slot_end = #{record.slotEnd,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_slottime
+    set id = #{record.id,jdbcType=BIGINT},
+      g_id = #{record.gId,jdbcType=BIGINT},
+      b_id = #{record.bId,jdbcType=BIGINT},
+      s_id = #{record.sId,jdbcType=BIGINT},
+      slot_time = #{record.slotTime,jdbcType=VARCHAR},
+      slot_start = #{record.slotStart,jdbcType=BIGINT},
+      slot_end = #{record.slotEnd,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.teamar.genki.pos.basic.po.TSlottime" >
+    update t_slottime
+    <set >
+      <if test="gId != null" >
+        g_id = #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="bId != null" >
+        b_id = #{bId,jdbcType=BIGINT},
+      </if>
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=BIGINT},
+      </if>
+      <if test="slotTime != null" >
+        slot_time = #{slotTime,jdbcType=VARCHAR},
+      </if>
+      <if test="slotStart != null" >
+        slot_start = #{slotStart,jdbcType=BIGINT},
+      </if>
+      <if test="slotEnd != null" >
+        slot_end = #{slotEnd,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.teamar.genki.pos.basic.po.TSlottime" >
+    update t_slottime
+    set g_id = #{gId,jdbcType=BIGINT},
+      b_id = #{bId,jdbcType=BIGINT},
+      s_id = #{sId,jdbcType=BIGINT},
+      slot_time = #{slotTime,jdbcType=VARCHAR},
+      slot_start = #{slotStart,jdbcType=BIGINT},
+      slot_end = #{slotEnd,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

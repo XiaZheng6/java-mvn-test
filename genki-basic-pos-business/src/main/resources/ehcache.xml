@@ -1,0 +1,5 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd">
+    <!-- 内存缓存：字典 -->
+    <cache name="dict" maxEntriesLocalHeap="100" timeToLiveSeconds="86400"/>
+</ehcache>

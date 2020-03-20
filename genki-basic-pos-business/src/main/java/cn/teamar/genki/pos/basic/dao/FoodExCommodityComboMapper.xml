@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teamar.genki.pos.basic.dao.FoodExCommodityComboMapper" >
+  <resultMap id="BaseResultMap" type="cn.teamar.genki.pos.basic.po.FoodExCommodityCombo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="g_id" property="gId" jdbcType="BIGINT" />
+    <result column="b_id" property="bId" jdbcType="BIGINT" />
+    <result column="s_id" property="sId" jdbcType="BIGINT" />
+    <result column="commodity_id" property="commodityId" jdbcType="BIGINT" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="spec_text" property="specText" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="commodity_qty" property="commodityQty" jdbcType="BIGINT" />
+    <result column="baseCommodityId" property="baseCommodityId" jdbcType="BIGINT" />
+    <result column="specId" property="specId" jdbcType="BIGINT" />
+    <result column="materielDepotRealId" property="materielDepotRealId" jdbcType="BIGINT" />
+    <result column="unitName" property="unitName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, G_ID, B_ID, S_ID, COMMODITY_ID, COMMODITY_NAME, SPEC_TEXT, PRICE, COMMODITY_QTY,BASECOMMODITYID,SPECID,MATERIELDEPOTREALID,UNITNAME,STATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityComboExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from food_ex_commodity_combo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from food_ex_commodity_combo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from food_ex_commodity_combo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityComboExample" >
+    delete from food_ex_commodity_combo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityCombo" >
+    insert into food_ex_commodity_combo (id, g_id, b_id, s_id, 
+      commodity_id, commodity_name, spec_text, 
+      price, commodity_qty)
+    values (#{id,jdbcType=BIGINT}, #{gId,jdbcType=BIGINT}, #{bId,jdbcType=BIGINT}, #{sId,jdbcType=BIGINT}, 
+      #{commodityId,jdbcType=BIGINT}, #{commodityName,jdbcType=VARCHAR}, #{specText,jdbcType=VARCHAR}, 
+      #{price,jdbcType=BIGINT}, #{commodityQty,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityCombo" >
+    insert into food_ex_commodity_combo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="commodityName != null" >
+        commodity_name,
+      </if>
+      <if test="specText != null" >
+        spec_text,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="commodityQty != null" >
+        commodity_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gId != null" >
+        #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="bId != null" >
+        #{bId,jdbcType=BIGINT},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityName != null" >
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="specText != null" >
+        #{specText,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="commodityQty != null" >
+        #{commodityQty,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityComboExample" resultType="java.lang.Integer" >
+    select count(*) from food_ex_commodity_combo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update food_ex_commodity_combo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gId != null" >
+        g_id = #{record.gId,jdbcType=BIGINT},
+      </if>
+      <if test="record.bId != null" >
+        b_id = #{record.bId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sId != null" >
+        s_id = #{record.sId,jdbcType=BIGINT},
+      </if>
+      <if test="record.commodityId != null" >
+        commodity_id = #{record.commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="record.commodityName != null" >
+        commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specText != null" >
+        spec_text = #{record.specText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+      <if test="record.commodityQty != null" >
+        commodity_qty = #{record.commodityQty,jdbcType=BIGINT},
+      </if>
+
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update food_ex_commodity_combo
+    set id = #{record.id,jdbcType=BIGINT},
+      g_id = #{record.gId,jdbcType=BIGINT},
+      b_id = #{record.bId,jdbcType=BIGINT},
+      s_id = #{record.sId,jdbcType=BIGINT},
+      commodity_id = #{record.commodityId,jdbcType=BIGINT},
+      commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+      spec_text = #{record.specText,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=BIGINT},
+      commodity_qty = #{record.commodityQty,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityCombo" >
+    update food_ex_commodity_combo
+    <set >
+      <if test="gId != null" >
+        g_id = #{gId,jdbcType=BIGINT},
+      </if>
+      <if test="bId != null" >
+        b_id = #{bId,jdbcType=BIGINT},
+      </if>
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="commodityName != null" >
+        commodity_name = #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="specText != null" >
+        spec_text = #{specText,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="commodityQty != null" >
+        commodity_qty = #{commodityQty,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.teamar.genki.pos.basic.po.FoodExCommodityCombo" >
+    update food_ex_commodity_combo
+    set g_id = #{gId,jdbcType=BIGINT},
+      b_id = #{bId,jdbcType=BIGINT},
+      s_id = #{sId,jdbcType=BIGINT},
+      commodity_id = #{commodityId,jdbcType=BIGINT},
+      commodity_name = #{commodityName,jdbcType=VARCHAR},
+      spec_text = #{specText,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT},
+      commodity_qty = #{commodityQty,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
